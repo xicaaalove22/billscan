@@ -7,6 +7,7 @@ import PageLayout from "../../components/PageLayout";
 import Textfield from "../../components/TextField";
 import Button from "../../components/Button";
 import { Context } from "../../components/Context";
+import React from "react";
 
 function EditRetailerResults() {
     const { user, userBill } = useContext(Context);

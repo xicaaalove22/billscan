@@ -6,6 +6,7 @@ import { Context } from "../../components/Context";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Grid, Typography, Box, Stack } from "@mui/material";
 import axios from "axios";
+import React from "react";
 
 function RetailerResults(props) {
     const { user, userBill } = useContext(Context);

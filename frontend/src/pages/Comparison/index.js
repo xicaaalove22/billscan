@@ -2,6 +2,7 @@ import PageLayout from "../../components/PageLayout";
 import Button from "../../components/Button";
 import ColumnChart from "../../components/ColumnChart";
 import { Typography, Stack, InputBase } from "@mui/material";
+import React from "react";
 import { useLocation } from "react-router-dom";
 
 function Comparison() {

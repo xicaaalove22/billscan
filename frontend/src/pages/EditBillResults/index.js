@@ -6,6 +6,7 @@ import Textfield from "../../components/TextField";
 import PageLayout from "../../components/PageLayout";
 import Button from "../../components/Button";
 import { Context } from "../../components/Context";
+import React from "react";
 
 function EditBillResults() {
     const [retailer, setRetailer] = useState("");

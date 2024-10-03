@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import axios from "axios";
+import React from "react";
 
 function Register() {
     const [name, setName] = useState("");

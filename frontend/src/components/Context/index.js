@@ -1,5 +1,6 @@
 // React Components
 import { createContext, useEffect, useState } from "react";
+import React from "react";
 
 export const Context = createContext(null);
 export const UserContext = ({ children }) => {

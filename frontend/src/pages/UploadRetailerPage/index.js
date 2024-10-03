@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import UploadRetailer from "../../components/UploadRetailer";
 import PageLayout from "../../components/PageLayout";
+import React from "react";
 
 const UploadRetailerPage = () => {
     return (

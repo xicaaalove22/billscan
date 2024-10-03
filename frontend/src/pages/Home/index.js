@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Upload from "../../components/Upload";
 import PageLayout from "../../components/PageLayout";
+import React from "react";
 
 const Home = () => {
     return (

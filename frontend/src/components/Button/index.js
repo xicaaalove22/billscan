@@ -1,4 +1,5 @@
 import { Button as MUIButton } from "@mui/material";
+import React from "react";
 
 const Button = (props) => {
     const buttonType = props.type;
@@ -62,7 +63,7 @@ const Button = (props) => {
                     {props.children}
                 </MUIButton>
             )}
-            
+
         </>
     );
 };
