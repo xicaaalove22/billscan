@@ -54,9 +54,12 @@ jobs:
       # 将前端打包好的文件复制到后端 public 目录中
       - name: Copy frontend build files to backend
         run: |
+          echo "Cleaning backend/public directory"
+          rm -rf backend/public/*
           echo "Copying frontend build files to backend public directory"
-          cp -rf frontend/build/* backend/public/
+          cp -r frontend/build/* backend/public/
           echo "Copy completed"
+        shell: bash
 
       # 将后端目录中的所有文件打包，供后续部署使用
       - name: Archive production-ready backend
