@@ -5,6 +5,7 @@ import React from "react";
 
 const Home = () => {
     return (
+
         <PageLayout>
             <Box
                 sx={{
@@ -36,5 +37,11 @@ const Home = () => {
         </PageLayout>
     );
 };
+
+const API_URL = process.env.REACT_APP_API_URL;
+
+
+console.log("API URL:", API_URL);
+
 
 export default Home;

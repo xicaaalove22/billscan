@@ -1,4 +1,4 @@
-// require('dotenv').config({ path: './.env.local' });
+require('dotenv').config({ path: './.env.local' });
 
 const express = require("express");
 const cors = require("cors");
@@ -39,3 +39,9 @@ app.use("/", routes);
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Listening on port http://localhost:${process.env.PORT || 3000}`);
 });
+
+app.use((req, res, next) => {
+    console.log(`Received request: ${req.method} ${req.originalUrl}`);
+    next();
+});
+
