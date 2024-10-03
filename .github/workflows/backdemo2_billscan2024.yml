@@ -64,10 +64,11 @@ jobs:
       # 将后端目录中的所有文件打包，供后续部署使用
       - name: Archive production-ready backend
         run: |
+          echo "Cleaning up old archives"
+          Remove-Item -Force backend.zip  # 删除旧的 zip 文件（如果存在）
           echo "Archiving backend directory"
-          zip -r backend.zip backend
-          echo "Backend archive created"
-        shell: bash
+          Compress-Archive -Path backend/* -DestinationPath backend.zip
+        shell: pwsh
 
       # 上传打包的后端项目，以便部署步骤使用
       - name: Upload backend package for deployment
