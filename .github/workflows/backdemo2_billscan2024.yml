@@ -61,14 +61,17 @@ jobs:
           echo "Copy completed"
         shell: bash
 
-      # 将后端目录中的所有文件打包，供后续部署使用
-      - name: Archive production-ready backend
+      # 安装 zip 工具
+      - name: Install zip utility
+        run: choco install zip
+        shell: cmd  # 使用 cmd shell 来运行命令
+
+      # 压缩后端目录
+      - name: Archive backend directory
         run: |
-          echo "Cleaning up old archives"
-          Remove-Item -Force backend.zip  # 删除旧的 zip 文件（如果存在）
-          echo "Archiving backend directory"
-          Compress-Archive -Path backend/* -DestinationPath backend.zip
-        shell: pwsh
+          zip -r backend.zip backend
+        shell: bash  # 切换到 bash shell 来执行 zip 命令
+
 
       # 上传打包的后端项目，以便部署步骤使用
       - name: Upload backend package for deployment
