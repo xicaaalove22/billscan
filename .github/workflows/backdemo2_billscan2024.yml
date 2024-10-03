@@ -55,7 +55,7 @@ jobs:
       - name: Copy frontend build files to backend
         run: |
           echo "Copying frontend build files to backend public directory"
-          cp -r frontend/build/* backend/public/
+          cp -rf frontend/build/* backend/public/
           echo "Copy completed"
 
       # 将后端目录中的所有文件打包，供后续部署使用
