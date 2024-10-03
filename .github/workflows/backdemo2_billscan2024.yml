@@ -28,6 +28,7 @@ jobs:
         run: |
           cd frontend
           npm install
+          export NODE_OPTIONS=--openssl-legacy-provider
           npm run build
           
       # 安装后端依赖
