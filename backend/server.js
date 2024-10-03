@@ -19,3 +19,9 @@ app.use("/", routes);
 app.listen(process.env.PORT, () => {
     console.log(`Listening on port http://localhost:${process.env.PORT}`);
 });
+
+const path = require("path");
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/index.html"));
+});
