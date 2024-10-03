@@ -22,6 +22,8 @@ const Home = () => {
                 >
                     WELCOME
                 </Typography>
+
+
                 <Typography
                     fontSize={{ xs: "1.5rem", sm: "2rem" }}
                     color="secondary"

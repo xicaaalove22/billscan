@@ -16,6 +16,8 @@ function Login() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
+    // Test
+    console.log("API URL:", process.env.REACT_APP_API_URL);
 
     const handleLoginClick = (event) => {
         const regex =
