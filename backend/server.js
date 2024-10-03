@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const path = require("path");
 
 // Custom Imports
 const routes = require("./routes/routes");
@@ -17,17 +16,6 @@ app.use(express.static("./public"));
 
 app.use("/", routes);
 
-const ENPORT = process.env.PORT || 8080;
-
-app.listen(ENPORT, () => {
+app.listen(process.env.PORT, () => {
     console.log(`Listening on port http://localhost:${process.env.PORT}`);
 });
-
-
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/index.html"));
-});
-
-console.log(`Environment PORT: ${process.env.PORT}`);
-console.log(`Fallback ENPORT: ${ENPORT}`);
