@@ -1,0 +1,113 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy Node.js app to Azure Web App - billscan2024linux
+
+on:
+  push:
+    branches:
+      - BackDemo2  # 触发部署的分支名
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 修改为 Linux 环境
+
+    steps:
+      # 检出代码到工作目录
+      - uses: actions/checkout@v4
+
+      # 设置 Node.js 版本为 18.x
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      # 确认 Node.js 版本是否正确安装
+      - name: Check Node.js version
+        run: |
+          node -v
+          npm -v
+
+      # 安装前端依赖、构建前端项目
+      - name: Install and build frontend
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+          CI: false
+        run: |
+          echo "Starting frontend build"
+          cd frontend
+          npm install
+          
+          echo "Building frontend"
+          npm run build
+          echo "Frontend build completed"
+          
+      # 安装后端依赖
+      - name: Install backend dependencies
+        run: |
+          echo "Installing backend dependencies"
+          cd backend
+          npm install
+          echo "Backend dependencies installed"
+
+      # 将前端打包好的文件复制到后端 public 目录中
+      - name: Copy frontend build files to backend
+        run: |
+          echo "Cleaning backend/public directory"
+          rm -rf backend/public/*
+          echo "Copying frontend build files to backend public directory"
+          cp -r frontend/build/* backend/public/
+          echo "Copy completed"
+
+      # 压缩后端目录
+      - name: Archive backend directory
+        run: |
+          zip -r backend.zip backend  # 直接使用 Linux 环境下的 zip 命令
+
+      # 上传打包的后端项目，以便部署步骤使用
+      - name: Upload backend package for deployment
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: backend.zip  # 将打包文件上传
+
+      # 打印上传成功的消息
+      - name: Confirm backend package upload
+        run: |
+          echo "Backend package uploaded: backend.zip"
+
+  deploy:
+    runs-on: ubuntu-latest  # Linux 环境
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: node-app
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_EC881B592F6C454BB11717EB03381C9C }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E8FA34DAAA23436BB96F08A8DF700D8E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_67BE05C5D6E348578A69793E0BC31C14 }}
+
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v3
+        id: deploy-to-webapp
+        with:
+          app-name: 'billscan2024linux'  # 修改为新的 Linux App Service 名称
+          slot-name: 'Production'
+          package: backend.zip
+
+      # 检查部署是否成功
+      - name: Verify deployment
+        run: |
+          echo "Deployment completed to Azure Web App: billscan2024linux"
