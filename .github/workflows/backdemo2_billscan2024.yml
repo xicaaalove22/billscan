@@ -31,12 +31,13 @@ jobs:
 
       # 安装前端依赖、构建前端项目
       - name: Install and build frontend
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: |
           echo "Starting frontend build"
           cd frontend
           npm install
-          echo "Setting NODE_OPTIONS"
-          NODE_OPTIONS=--openssl-legacy-provider
+          
           echo "Building frontend"
           npm run build
           echo "Frontend build completed"
