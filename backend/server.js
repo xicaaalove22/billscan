@@ -30,7 +30,7 @@ app.use(cors({
 }));
 
 // Serve static files
-app.use(express.static("./public"));
+// app.use(express.static("./public"));
 
 // Routes
 app.use("/", routes);
@@ -44,4 +44,16 @@ app.use((req, res, next) => {
     console.log(`Received request: ${req.method} ${req.originalUrl}`);
     next();
 });
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*"); // 临时允许所有来源的请求
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    next();
+});
+
+
+app.use(express.static("./public"));
+
 
