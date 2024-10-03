@@ -11,27 +11,37 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
-
-    steps:
+    # 检出代码到工作目录
       - uses: actions/checkout@v4
 
+      # 设置 Node.js 版本为 18.x
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
 
+      # 安装依赖、构建前端、测试项目
       - name: npm install, build, and test
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-      
+          cd frontend      # 进入前端目录
+          npm install      # 安装前端依赖
+          npm run build    # 构建前端项目
+          cd ../backend    # 进入后端目录
+          npm install      # 安装后端依赖
+          npm test --if-present # 运行测试
+
+      # 将前端打包好的文件复制到后端 public 目录
+      - name: Copy frontend build to backend public directory
+        run: |
+          cd frontend/build  # 进入前端构建目录
+          cp -r * ../../backend/public/  # 将所有构建文件复制到后端 public 文件夹中
+
+      # 上传构建产物，供后续部署使用
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: backend  # 将整个后端目录上传
 
   deploy:
     runs-on: ubuntu-latest
