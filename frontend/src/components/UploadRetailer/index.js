@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import React from 'react';
+
 import axios from "axios";
 import {
     Grid,
