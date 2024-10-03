@@ -33,6 +33,7 @@ jobs:
       - name: Install and build frontend
         env:
           NODE_OPTIONS: --openssl-legacy-provider
+          CI: false
         run: |
           echo "Starting frontend build"
           cd frontend
