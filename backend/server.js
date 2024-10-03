@@ -16,7 +16,9 @@ app.use(express.static("./public"));
 
 app.use("/", routes);
 
-app.listen(process.env.PORT, () => {
+const ENPORT = process.env.PORT || 8080;
+
+app.listen(ENPORT, () => {
     console.log(`Listening on port http://localhost:${process.env.PORT}`);
 });
 
