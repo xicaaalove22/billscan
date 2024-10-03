@@ -36,7 +36,7 @@ jobs:
           cd frontend
           npm install
           echo "Setting NODE_OPTIONS"
-          set NODE_OPTIONS=--openssl-legacy-provider
+          NODE_OPTIONS=--openssl-legacy-provider
           echo "Building frontend"
           npm run build
           echo "Frontend build completed"
