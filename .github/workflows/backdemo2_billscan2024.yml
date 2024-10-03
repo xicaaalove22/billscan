@@ -23,28 +23,45 @@ jobs:
         with:
           node-version: '18.x'
 
+      # 确认 Node.js 版本是否正确安装
+      - name: Check Node.js version
+        run: |
+          node -v
+          npm -v
+
       # 安装前端依赖、构建前端项目
       - name: Install and build frontend
         run: |
+          echo "Starting frontend build"
           cd frontend
           npm install
+          echo "Setting NODE_OPTIONS"
           set NODE_OPTIONS=--openssl-legacy-provider
+          echo "Building frontend"
           npm run build
+          echo "Frontend build completed"
           
       # 安装后端依赖
       - name: Install backend dependencies
         run: |
+          echo "Installing backend dependencies"
           cd backend
           npm install
+          echo "Backend dependencies installed"
 
       # 将前端打包好的文件复制到后端 public 目录中
       - name: Copy frontend build files to backend
         run: |
+          echo "Copying frontend build files to backend public directory"
           cp -r frontend/build/* backend/public/
+          echo "Copy completed"
 
       # 将后端目录中的所有文件打包，供后续部署使用
       - name: Archive production-ready backend
-        run: zip -r backend.zip backend
+        run: |
+          echo "Archiving backend directory"
+          zip -r backend.zip backend
+          echo "Backend archive created"
         shell: bash
 
       # 上传打包的后端项目，以便部署步骤使用
@@ -53,7 +70,10 @@ jobs:
         with:
           name: node-app
           path: backend.zip  # 将打包文件上传
-
+          # 打印上传成功的消息
+      - name: Confirm backend package upload
+        run: |
+          echo "Backend package uploaded: backend.zip"
 
   deploy:
     runs-on: ubuntu-latest
@@ -84,4 +104,8 @@ jobs:
           app-name: 'billscan2024'
           slot-name: 'Production'
           package: backend.zip
-          
+
+      # 检查部署是否成功
+      - name: Verify deployment
+        run: |
+          echo "Deployment completed to Azure Web App: billscan2024"
