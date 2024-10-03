@@ -43,7 +43,7 @@ function UploadRetailer() {
             data.append("name", filename);
             data.append("file", file);
 
-            axios.post("${API_URL}/upload", data).then((res) => {
+            axios.post(`${API_URL}/upload`, data).then((res) => {
                 setblobFileURL(res.data.publicURL);
             });
         }
@@ -56,7 +56,7 @@ function UploadRetailer() {
         } else {
             setIsLoading(true);
             axios
-                .post("${API_URL}/scanRetailerPlan", {
+                .post(`${API_URL}/scanRetailerPlan`, {
                     blobFileURL,
                 })
                 .then((res) => {
@@ -79,7 +79,7 @@ function UploadRetailer() {
         // guest user will be taken to comparison page directly
         if (userBill) {
             axios
-                .post("${API_URL}/compare", { userBill })
+                .post(`${API_URL}/compare`, { userBill })
                 .then((res) => {
                     let userDetail = res.data.userDetail;
                     let top5Plans = res.data.top5Plans;

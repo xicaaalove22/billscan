@@ -55,7 +55,7 @@ function Register() {
             navigate("/register");
         } else {
             axios
-                .post("${API_URL}/register", {
+                .post(`${API_URL}/register`, {
                     name,
                     email,
                     phone,

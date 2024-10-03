@@ -23,7 +23,7 @@ function SelectBill(props) {
         // page only accessible to logged in users
         if (!user) navigate("/");
         axios
-            .get("${API_URL}/userBills", {
+            .get(`${API_URL}/userBills`, {
                 params: { userId: user.id },
             })
             .then((res) => {
@@ -42,7 +42,7 @@ function SelectBill(props) {
             );
         } else {
             axios
-                .post("${API_URL}/compare", { selectedBill })
+                .post(`${API_URL}/compare`, { selectedBill })
                 .then((res) => {
                     let userDetail = res.data.userDetail;
                     let top5Plans = res.data.top5Plans;

@@ -35,7 +35,7 @@ function Feedback() {
             alert("Please change at least one field before clicking'SUBMIT'.");
         } else {
             axios
-                .post("${API_URL}/feedback", {
+                .post(`${API_URL}/feedback`, {
                     thumbsUpClicked,
                     thumbsDownClicked,
                     additionalFeedback,

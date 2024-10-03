@@ -130,7 +130,7 @@ function EditBillResults() {
         // if logged in user, save data to Db
         if (user) {
             axios
-                .post("${API_URL}/insertData", {
+                .post(`${API_URL}/insertData`, {
                     scannedFileData: updatedScanValues,
                     userId: user.id,
                 })

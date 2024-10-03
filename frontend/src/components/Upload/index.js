@@ -43,7 +43,7 @@ function Upload() {
             data.append("name", filename);
             data.append("file", file);
 
-            axios.post("${API_URL}/upload", data).then((res) => {
+            axios.post(`${API_URL}/upload`, data).then((res) => {
                 setblobFileURL(res.data.publicURL);
                 console.log(res.data.publicURL);
             });
@@ -57,7 +57,7 @@ function Upload() {
         } else {
             setIsLoading(true);
             axios
-                .post("${API_URL}/scanBill", {
+                .post(`${API_URL}/scanBill`, {
                     blobFileURL,
                     fileName: file,
                 })

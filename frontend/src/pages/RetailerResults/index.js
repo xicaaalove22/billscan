@@ -23,7 +23,7 @@ function RetailerResults(props) {
     const handleContClick = (event) => {
         axios
             .post(
-                "${API_URL}/insertRetailerData",
+                `${API_URL}/insertRetailerData`,
                 scannedRetailerPlanData
             )
             .catch((err) => {
@@ -32,7 +32,7 @@ function RetailerResults(props) {
         // guest user will be taken comparison page directly
         if (userBill) {
             axios
-                .post("${API_URL}/compare", { userBill })
+                .post(`${API_URL}/compare`, { userBill })
                 .then((res) => {
                     let userDetail = res.data.userDetail;
                     let top5Plans = res.data.top5Plans;

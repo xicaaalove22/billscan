@@ -27,7 +27,7 @@ function BillResults(props) {
         // if logged in user, save data to Db
         if (user) {
             axios
-                .post("${API_URL}/insertData", {
+                .post(`${API_URL}/insertData`, {
                     scannedFileData,
                     userId: user.id,
                 })
