@@ -11,7 +11,10 @@ on:
 
 jobs:
   build:
-    # 检出代码到工作目录
+    runs-on: windows-latest
+
+    steps:
+      # 检出代码到工作目录
       - uses: actions/checkout@v4
 
       # 设置 Node.js 版本为 18.x
@@ -42,6 +45,7 @@ jobs:
         with:
           name: node-app
           path: backend  # 将整个后端目录上传
+
 
   deploy:
     runs-on: ubuntu-latest
