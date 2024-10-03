@@ -14,6 +14,7 @@ function Feedback() {
     const [thumbsDownClicked, setThumbsDownClicked] = useState(false);
     const [additionalFeedback, setAdditionalFeedback] = useState("");
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleThumbsUpClick = () => {
         setThumbsUpClicked(true);
@@ -34,7 +35,7 @@ function Feedback() {
             alert("Please change at least one field before clicking'SUBMIT'.");
         } else {
             axios
-                .post("http://localhost:8080/feedback", {
+                .post("${API_URL}/feedback", {
                     thumbsUpClicked,
                     thumbsDownClicked,
                     additionalFeedback,

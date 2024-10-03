@@ -30,6 +30,8 @@ function EditRetailerResults() {
 
     /*examples: directDebit, greenPower, paperBills, fixedPrice*/
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
     const location = useLocation();
     const scannedRetailerPlanData = location.state;
     useEffect(() => {
@@ -124,7 +126,7 @@ function EditRetailerResults() {
 
         axios
             .post(
-                "http://localhost:8080/insertRetailerData",
+                "${API_URL}/insertRetailerData",
                 scannedRetailerPlanData
             )
             .catch((err) => {
@@ -133,7 +135,7 @@ function EditRetailerResults() {
         // guest user will be taken to comparison page directly
         if (userBill) {
             axios
-                .post("http://localhost:8080/compare", { userBill })
+                .post("${API_URL}/compare", { userBill })
                 .then((res) => {
                     let userDetail = res.data.userDetail;
                     let top5Plans = res.data.top5Plans;

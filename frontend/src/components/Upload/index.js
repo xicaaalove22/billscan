@@ -27,6 +27,8 @@ function Upload() {
     const [isLoading, setIsLoading] = useState(false);
     const [scannedFileData, setScannedFileData] = useState({});
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
     const handleCloseButtonClick = () => {
         setFile(null);
     };
@@ -41,7 +43,7 @@ function Upload() {
             data.append("name", filename);
             data.append("file", file);
 
-            axios.post("http://localhost:8080/upload", data).then((res) => {
+            axios.post("${API_URL}/upload", data).then((res) => {
                 setblobFileURL(res.data.publicURL);
                 console.log(res.data.publicURL);
             });
@@ -55,7 +57,7 @@ function Upload() {
         } else {
             setIsLoading(true);
             axios
-                .post("http://localhost:8080/scanBill", {
+                .post("${API_URL}/scanBill", {
                     blobFileURL,
                     fileName: file,
                 })
