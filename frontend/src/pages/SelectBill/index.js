@@ -12,6 +12,7 @@ function SelectBill(props) {
     const [selectedBill, setSelectedBill] = useState("");
     const [bills, setBills] = useState([]);
     const { user } = useContext(Context);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleChange = (event) => {
         setSelectedBill(event.target.value);
@@ -21,7 +22,7 @@ function SelectBill(props) {
         // page only accessible to logged in users
         if (!user) navigate("/");
         axios
-            .get("http://localhost:8080/userBills", {
+            .get(`${API_URL}/userBills`, {
                 params: { userId: user.id },
             })
             .then((res) => {
@@ -40,7 +41,7 @@ function SelectBill(props) {
             );
         } else {
             axios
-                .post("http://localhost:8080/compare", { selectedBill })
+                .post(`${API_URL}/compare`, { selectedBill })
                 .then((res) => {
                     let userDetail = res.data.userDetail;
                     let top5Plans = res.data.top5Plans;

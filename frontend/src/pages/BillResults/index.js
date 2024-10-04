@@ -16,6 +16,7 @@ function BillResults(props) {
     const { user, setUserBill } = useContext(Context);
 
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleEditClick = (event) => {
         navigate("/edit-bill-results", { state: scannedFileData });
@@ -25,7 +26,7 @@ function BillResults(props) {
         // if logged in user, save data to Db
         if (user) {
             axios
-                .post("http://localhost:8080/insertData", {
+                .post(`${API_URL}/insertData`, {
                     scannedFileData,
                     userId: user.id,
                 })

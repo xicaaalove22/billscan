@@ -27,6 +27,7 @@ function UploadRetailer() {
     const [isLoading, setIsLoading] = useState(false);
     const [scannedRetailerPlanData, setScannedRetailerPlanData] = useState({});
     const { user, userBill } = useContext(Context);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleCloseButtonClick = () => {
         setFile(null);
@@ -42,7 +43,7 @@ function UploadRetailer() {
             data.append("name", filename);
             data.append("file", file);
 
-            axios.post("http://localhost:8080/upload", data).then((res) => {
+            axios.post(`${API_URL}/upload, data`).then((res) => {
                 setblobFileURL(res.data.publicURL);
             });
         }
@@ -55,7 +56,7 @@ function UploadRetailer() {
         } else {
             setIsLoading(true);
             axios
-                .post("http://localhost:8080/scanRetailerPlan", {
+                .post(`${API_URL}/scanRetailerPlan`, {
                     blobFileURL,
                 })
                 .then((res) => {
@@ -78,7 +79,7 @@ function UploadRetailer() {
         // guest user will be taken to comparison page directly
         if (userBill) {
             axios
-                .post("http://localhost:8080/compare", { userBill })
+                .post(`${API_URL}/compare`, { userBill })
                 .then((res) => {
                     let userDetail = res.data.userDetail;
                     let top5Plans = res.data.top5Plans;

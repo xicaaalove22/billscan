@@ -100,6 +100,7 @@ function EditBillResults() {
     };
 
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleCancelClick = (event) => {
         navigate("/bill-results", { state: scannedFileData });
@@ -128,7 +129,7 @@ function EditBillResults() {
         // if logged in user, save data to Db
         if (user) {
             axios
-                .post("http://localhost:8080/insertData", {
+                .post(`${API_URL}/insertData`, {
                     scannedFileData: updatedScanValues,
                     userId: user.id,
                 })

@@ -13,6 +13,7 @@ function RetailerResults(props) {
     const location = useLocation();
     const scannedRetailerPlanData = location.state;
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleEditClick = (event) => {
         navigate("/edit-retailer-results", { state: scannedRetailerPlanData });
@@ -21,7 +22,7 @@ function RetailerResults(props) {
     const handleContClick = (event) => {
         axios
             .post(
-                "http://localhost:8080/insertRetailerData",
+                `${API_URL}/insertRetailerData`,
                 scannedRetailerPlanData
             )
             .catch((err) => {
@@ -30,7 +31,7 @@ function RetailerResults(props) {
         // guest user will be taken comparison page directly
         if (userBill) {
             axios
-                .post("http://localhost:8080/compare", { userBill })
+                .post(`${API_URL}/compare`, { userBill })
                 .then((res) => {
                     let userDetail = res.data.userDetail;
                     let top5Plans = res.data.top5Plans;

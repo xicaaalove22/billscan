@@ -14,6 +14,7 @@ function Register() {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -54,7 +55,7 @@ function Register() {
             navigate("/register");
         } else {
             axios
-                .post("http://localhost:8080/register", {
+                .post(`${API_URL}/register"`, {
                     name,
                     email,
                     phone,
